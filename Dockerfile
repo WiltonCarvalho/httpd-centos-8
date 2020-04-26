@@ -28,8 +28,8 @@ ErrorLog "/var/log/httpd/error_log" \
 RUN sed -i 's/CustomLog/#CustomLog/g' /etc/httpd/conf/httpd.conf
 RUN ln -sf /proc/self/fd/1 /var/log/httpd/access_log && \
     ln -sf /proc/self/fd/1 /var/log/httpd/error_log
-RUN echo "ok" > /var/www/html/index.html
-RUN echo '<?php phpinfo(); ?>' > /var/www/html/info.php
+RUN rm -rf /var/www/html/
+COPY ./html /var/www/html/
 COPY ./vhosts.conf /etc/httpd/conf.d/vhosts.conf
 VOLUME /var/www/html
 EXPOSE 80
